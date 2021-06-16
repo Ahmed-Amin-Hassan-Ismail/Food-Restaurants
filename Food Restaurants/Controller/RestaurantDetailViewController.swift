@@ -10,7 +10,7 @@ import UIKit
 
 class RestaurantDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-   //Outlets
+    //Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: RestaurantDetailHeaderView!
     
@@ -19,12 +19,12 @@ class RestaurantDetailViewController: UIViewController, UITableViewDataSource, U
     // instantce variables
     var restaurant: Restaurant!
     
-
+    
     //MARK:- View controller life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Disable large title
         navigationController?.navigationItem.largeTitleDisplayMode = .never
         
@@ -65,11 +65,13 @@ class RestaurantDetailViewController: UIViewController, UITableViewDataSource, U
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
+        return 5
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.row {
         case 0:
@@ -101,20 +103,41 @@ class RestaurantDetailViewController: UIViewController, UITableViewDataSource, U
             
             return cell
             
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailSeparatorCell.self), for: indexPath) as! RestaurantDetailSeparatorCell
+            
+            //cell configuration
+            cell.titleLabel.text = "HOW TO GET HERE"
+            cell.selectionStyle = .none
+            
+            return cell
+            
+        case 4:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailMapCell.self), for: indexPath) as! RestaurantDetailMapCell
+            
+            //cell configuration
+            cell.getMyLocation(location: restaurant.location)
+            
+            return cell
+            
         default:
             fatalError("Failed to instantiate the table view cell for detail view controller.")
         }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // to specify height of map row
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard indexPath.row == 4 else {
+            return tableView.rowHeight
+        }
+        return 215
     }
-    */
-
+    
+    
+    //MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showMap" {
+            let controller = segue.destination as! MapViewController
+            controller.restaurant = restaurant
+        }
+    }
 }
