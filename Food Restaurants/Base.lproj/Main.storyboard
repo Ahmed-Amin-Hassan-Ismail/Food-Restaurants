@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="P5D-dG-lM6">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15400"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -57,15 +57,23 @@
                                                 </stackView>
                                             </subviews>
                                         </stackView>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart-tick" translatesAutoresizingMaskIntoConstraints="NO" id="Qgo-qq-Whx">
+                                            <rect key="frame" x="330" y="7" width="25" height="25"/>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="vRi-a5-Esf" firstAttribute="leading" secondItem="RL5-J3-AA8" secondAttribute="leadingMargin" constant="6" id="3TD-s7-bKP"/>
+                                        <constraint firstAttribute="bottom" secondItem="Qgo-qq-Whx" secondAttribute="bottom" constant="56" id="Fgn-AR-FbX"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="vRi-a5-Esf" secondAttribute="bottom" id="QNh-Xb-Pa4"/>
                                         <constraint firstItem="vRi-a5-Esf" firstAttribute="top" secondItem="RL5-J3-AA8" secondAttribute="topMargin" id="hhR-S4-NtB"/>
+                                        <constraint firstItem="Qgo-qq-Whx" firstAttribute="leading" secondItem="RL5-J3-AA8" secondAttribute="leading" constant="330" id="oCh-s2-aW6"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="vRi-a5-Esf" secondAttribute="trailing" id="ox3-EI-zx1"/>
+                                        <constraint firstItem="Qgo-qq-Whx" firstAttribute="top" secondItem="RL5-J3-AA8" secondAttribute="top" constant="7" id="tyc-ce-Ogq"/>
+                                        <constraint firstAttribute="trailing" secondItem="Qgo-qq-Whx" secondAttribute="trailing" constant="20" id="xhf-Tv-vSf"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="heartImageView" destination="Qgo-qq-Whx" id="CgF-Th-upk"/>
                                     <outlet property="locationLabel" destination="br5-Ai-34W" id="hDT-ae-kfz"/>
                                     <outlet property="nameLabel" destination="wj7-b7-Gfv" id="QNB-WX-6fH"/>
                                     <outlet property="thumbnailImageView" destination="lej-5U-NUz" id="ua5-k8-gIT"/>
@@ -84,4 +92,7 @@
             <point key="canvasLocation" x="41" y="62"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="heart-tick" width="22" height="21"/>
+    </resources>
 </document>
