@@ -77,12 +77,32 @@ class RestaurantViewController: UITableViewController, UISearchResultsUpdating {
         searchController.searchBar.tintColor = UIColor(red: 231, green: 76, blue: 60)
         searchController.searchBar.searchBarStyle = .default
     }
+    
+    //MARK: - override Methods
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
         //Hide navigation controller on swipe
         navigationController?.hidesBarsOnSwipe = true
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        // checking if it opened or
+        if UserDefaults.standard.bool(forKey: "hasViewedWalkthrough") {
+            return
+        }
+
+        // Displaying walkthrough screens
+        let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
+        if let walkthroughViewController = storyboard.instantiateViewController(identifier: "WalkthroughViewController") as? WalkthroughViewController {
+            
+            present(walkthroughViewController,
+                    animated: true,
+                    completion: nil)
+        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
