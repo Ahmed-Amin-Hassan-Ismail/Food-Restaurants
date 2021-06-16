@@ -167,11 +167,13 @@ class RestaurantDetailViewController: UIViewController, UITableViewDataSource, U
         if segue.identifier == "showMap" {
             let controller = segue.destination as! MapViewController
             controller.restaurant = restaurant
+            controller.hidesBottomBarWhenPushed = true
             
             //for background transition
         } else if segue.identifier == "showReview"{
             let controller = segue.destination as! ReviewViewController
             controller.restaurant = restaurant
+            controller.hidesBottomBarWhenPushed = true
         }
     }
 }
