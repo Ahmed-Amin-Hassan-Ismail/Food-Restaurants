@@ -13,7 +13,11 @@ class RestaurantTableViewCell: UITableViewCell {
     
     //Outlets
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel! {
+        didSet {
+            locationLabel.numberOfLines = 0
+        }
+    }
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var thumbnailImageView: UIImageView! {
         didSet {
