@@ -14,7 +14,34 @@ class RestaurantDetailViewController: UIViewController, UITableViewDataSource, U
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: RestaurantDetailHeaderView!
     
-    
+    // unwind segue Actions
+    @IBAction func close(segue: UIStoryboardSegue) {
+        dismiss(animated: true, completion: nil)
+    }
+    // rating view
+    @IBAction func restaurantRating(segue: UIStoryboardSegue) {
+        if let rating = segue.identifier {
+            self.restaurant.rating = rating
+            self.headerView.ratingImageView.image = UIImage(named: rating)
+            
+            //scale up animation
+            let scaleUpTransform = CGAffineTransform(scaleX: 5.0, y: 5.0)
+            self.headerView.ratingImageView.transform = scaleUpTransform
+            self.headerView.ratingImageView.alpha = 0
+            
+            UIView.animate(withDuration: 0.4,
+                           delay: 0.3,
+                           usingSpringWithDamping: 0.3,
+                           initialSpringVelocity: 0.7,
+                           options: [],
+                           animations: {
+                self.headerView.ratingImageView.alpha = 1.0
+                self.headerView.ratingImageView.transform = .identity
+            },
+                           completion: nil)
+        }
+        dismiss(animated: true, completion: nil)
+    }
     
     // instantce variables
     var restaurant: Restaurant!
@@ -135,9 +162,17 @@ class RestaurantDetailViewController: UIViewController, UITableViewDataSource, U
     
     //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        //for map transition
         if segue.identifier == "showMap" {
             let controller = segue.destination as! MapViewController
+            controller.restaurant = restaurant
+            
+            //for background transition
+        } else if segue.identifier == "showReview"{
+            let controller = segue.destination as! ReviewViewController
             controller.restaurant = restaurant
         }
     }
 }
+
