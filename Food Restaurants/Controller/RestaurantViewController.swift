@@ -34,6 +34,11 @@ class RestaurantViewController: UITableViewController {
         Restaurant(name: "CASK Pub and Kitchen", type: "Thai", location: "22 Charlwood Street London SW1V 2DY Pimlico", phone: "432-344050", description: "With kitchen serving gourmet burgers. We offer food every day of the week, Monday through to Sunday. Join us every Sunday from 4:30 – 7:30pm for live acoustic music!", image: "caskpubkitchen.jpg", isVisited: false)
     ]
     
+    //Dismiss Action
+    @IBAction func unwindForHome(segue: UIStoryboardSegue) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     //MARK:- Table view Life Cycle
     
     override func viewDidLoad() {
@@ -98,59 +103,6 @@ class RestaurantViewController: UITableViewController {
     
     
     //MARK:- TableView Delegate
-    
-    //    override func tableView(_ tableView: UITableView,
-    //                            didSelectRowAt indexPath: IndexPath) {
-    //        //Creating aleart
-    //        let optionMenue = UIAlertController(title: nil, message: "What do you want to do?", preferredStyle: .actionSheet)
-    //
-    //        //Cancel Action
-    //        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-    //
-    //        //Call Action
-    //        let title =  "Call 123-000-\(indexPath.row)"
-    //        let callAction = UIAlertAction(title:title , style: .default) { (_) in
-    //            //Cearing alert
-    //            let alertMessage = UIAlertController(title: "Service Unavailable", message: "sorry,the call feature is not available yet. please try again later.", preferredStyle: .alert)
-    //
-    //            // okay Action
-    //            let okayAction = UIAlertAction(title: "Ok!", style: .default, handler: nil)
-    //
-    //            //Adding Actions
-    //            alertMessage.addAction(okayAction)
-    //
-    //            //Displaying the alert
-    //            self.present(alertMessage, animated: true, completion: nil)
-    //        }
-    //
-    //        //CheckIn Action
-    //        let CheckTitle = restaurantIsVisited[indexPath.row] ? "Undo Check-In" : "Check-In"
-    //        let checkInAction = UIAlertAction(title: CheckTitle, style: .default) { (_) in
-    //            if let cell = tableView.cellForRow(at: indexPath) as? RestaurantTableViewCell {
-    //                self.restaurantIsVisited[indexPath.row] = !self.restaurantIsVisited[indexPath.row]
-    //                cell.heartImageView.isHidden = self.restaurantIsVisited[indexPath.row] ? false : true
-    //            }
-    //        }
-    //
-    //        //Adding Actions
-    //        optionMenue.addAction(cancelAction)
-    //        optionMenue.addAction(callAction)
-    //        optionMenue.addAction(checkInAction)
-    //
-    //        //for ipad
-    //        if let popover = optionMenue.popoverPresentationController {
-    //            if let cell = tableView.cellForRow(at: indexPath) {
-    //                popover.sourceView = cell
-    //                popover.sourceRect = cell.bounds
-    //            }
-    //        }
-    //
-    //        //DisPlay the menue....
-    //        present(optionMenue, animated: true, completion: nil)
-    //
-    //        //Diselection the Cell
-    //        tableView.deselectRow(at: indexPath, animated: true)
-    //    }
     
     // Trailing Swipe Action
     override func tableView(_ tableView: UITableView,
