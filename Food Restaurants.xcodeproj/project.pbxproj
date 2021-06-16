@@ -34,6 +34,8 @@
 		157175BE254F1763007B7A9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157175BD254F1763007B7A9F /* AppDelegate.swift */; };
 		157175C0254F1763007B7A9F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157175BF254F1763007B7A9F /* SceneDelegate.swift */; };
 		157175C7254F1764007B7A9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 157175C6254F1764007B7A9F /* Assets.xcassets */; };
+		157E70AA267AB88200C56E3D /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 157E70A9267AB88200C56E3D /* Discover.storyboard */; };
+		157E70B0267AB8FA00C56E3D /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 157E70AE267AB8FA00C56E3D /* About.storyboard */; };
 		15BCF2FD267A70A6006EB441 /* RestaurantDetailSeparatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BCF2F6267A70A6006EB441 /* RestaurantDetailSeparatorCell.swift */; };
 		15BCF2FE267A70A6006EB441 /* RestaurantDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BCF2F7267A70A6006EB441 /* RestaurantDetailHeaderView.swift */; };
 		15BCF2FF267A70A6006EB441 /* RestaurantDetailMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BCF2F8267A70A6006EB441 /* RestaurantDetailMapCell.swift */; };
@@ -73,6 +75,8 @@
 		157175BF254F1763007B7A9F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		157175C6254F1764007B7A9F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		157175CB254F1764007B7A9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		157E70A9267AB88200C56E3D /* Discover.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Discover.storyboard; sourceTree = "<group>"; };
+		157E70AF267AB8FA00C56E3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = FoodPin/Storyboard/Base.lproj/About.storyboard; sourceTree = "<group>"; };
 		15BCF2F6267A70A6006EB441 /* RestaurantDetailSeparatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestaurantDetailSeparatorCell.swift; path = "../../../../APPCoda/21 Walkthrough Screens/FoodPin/FoodPin/View/RestaurantDetailSeparatorCell.swift"; sourceTree = "<group>"; };
 		15BCF2F7267A70A6006EB441 /* RestaurantDetailHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestaurantDetailHeaderView.swift; path = "../../../../APPCoda/21 Walkthrough Screens/FoodPin/FoodPin/View/RestaurantDetailHeaderView.swift"; sourceTree = "<group>"; };
 		15BCF2F8267A70A6006EB441 /* RestaurantDetailMapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestaurantDetailMapCell.swift; path = "../../../../APPCoda/21 Walkthrough Screens/FoodPin/FoodPin/View/RestaurantDetailMapCell.swift"; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 				154F97CB267A662B003C822E /* LaunchScreen.storyboard */,
 				154F97CD267A662B003C822E /* Main.storyboard */,
 				150C0DB1267A71E200BBB771 /* Onboarding.storyboard */,
+				157E70AE267AB8FA00C56E3D /* About.storyboard */,
+				157E70A9267AB88200C56E3D /* Discover.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -267,6 +273,8 @@
 			files = (
 				154F97D0267A662B003C822E /* Main.storyboard in Resources */,
 				15123F9E267A6F4F001A59F3 /* Rubik-Regular.ttf in Resources */,
+				157E70B0267AB8FA00C56E3D /* About.storyboard in Resources */,
+				157E70AA267AB88200C56E3D /* Discover.storyboard in Resources */,
 				15123F9C267A6F4F001A59F3 /* Rubik-LightItalic.ttf in Resources */,
 				15123F98267A6F4F001A59F3 /* Rubik-Light.ttf in Resources */,
 				15123F9A267A6F4F001A59F3 /* Rubik-Black.ttf in Resources */,
@@ -329,6 +337,14 @@
 				154F97CE267A662B003C822E /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		157E70AE267AB8FA00C56E3D /* About.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				157E70AF267AB8FA00C56E3D /* Base */,
+			);
+			name = About.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
