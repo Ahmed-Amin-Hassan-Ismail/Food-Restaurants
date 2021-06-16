@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RestaurantViewController: UITableViewController {
+class RestaurantViewController: UITableViewController, UISearchResultsUpdating {
     
     var restaurants:[Restaurant] = [
         Restaurant(name: "Cafe Deadend", type: "Coffee & Tea Shop", location: "G/F, 72 Po Hing Fong, Sheung Wan, Hong Kong", phone: "232-923423", description: "Searching for great breakfast eateries and coffee? This place is for you. We open at 6:30 every morning, and close at 9 PM. We offer espresso and espresso based drink, such as capuccino, cafe latte, piccolo and many more. Come over and enjoy a great meal.", image: "cafedeadend.jpg", isVisited: false),
@@ -34,6 +34,10 @@ class RestaurantViewController: UITableViewController {
         Restaurant(name: "CASK Pub and Kitchen", type: "Thai", location: "22 Charlwood Street London SW1V 2DY Pimlico", phone: "432-344050", description: "With kitchen serving gourmet burgers. We offer food every day of the week, Monday through to Sunday. Join us every Sunday from 4:30 – 7:30pm for live acoustic music!", image: "caskpubkitchen.jpg", isVisited: false)
     ]
     
+    //For search bar
+    var searchController: UISearchController!
+    var searchResults: [Restaurant] = []
+    
     //Dismiss Action
     @IBAction func unwindForHome(segue: UIStoryboardSegue) {
         dismiss(animated: true, completion: nil)
@@ -57,7 +61,21 @@ class RestaurantViewController: UITableViewController {
             navigationController?.navigationBar.largeTitleTextAttributes =
                 [NSAttributedString.Key.foregroundColor: UIColor(red: 231.0/255.0, green: 76.0/255.0, blue: 60.0/255.0, alpha: 1.0),
                  NSAttributedString.Key.font: customFont]
-        }                            
+        }
+        
+        // creating search bar
+        searchController = UISearchController(searchResultsController: nil)
+       //self.navigationItem.searchController = searchController
+        tableView.tableHeaderView = searchController.searchBar
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        
+        //Customizing the appearance of the search bar
+        searchController.searchBar.placeholder = "Search restaurants..."
+        searchController.searchBar.barTintColor = .white
+        searchController.searchBar.backgroundImage = UIImage()
+        searchController.searchBar.tintColor = UIColor(red: 231, green: 76, blue: 60)
+        searchController.searchBar.searchBarStyle = .default
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -79,8 +97,12 @@ class RestaurantViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return restaurants.count
+        // Determine whether search bar is active or not
+        if searchController.isActive {
+            return searchResults.count
+        } else {
+            return restaurants.count
+        }
     }
     
     
@@ -88,8 +110,10 @@ class RestaurantViewController: UITableViewController {
         let cellIdentifier = "DataCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! RestaurantTableViewCell
         
+        //Determine if we get the restaurant from search array or original array
+        let restaurant = (searchController.isActive) ? searchResults[indexPath.row] : restaurants[indexPath.row]
+        
         // Configure the cell...
-        let restaurant = restaurants[indexPath.row]
         cell.nameLabel.text = restaurant.name
         cell.locationLabel.text = restaurant.location
         cell.typeLabel.text = restaurant.type
@@ -101,6 +125,13 @@ class RestaurantViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if searchController.isActive {
+            return false
+        } else {
+            return true
+        }
+    }
     
     //MARK:- TableView Delegate
     
@@ -173,13 +204,35 @@ class RestaurantViewController: UITableViewController {
         return UISwipeActionsConfiguration(actions: [checkInAction])
     }
     
+    //MARK:- Private Methods
+    
+    func filterContent(for searchText: String) {
+        searchResults = restaurants.filter({ (restaurant) -> Bool in
+            if restaurant.name.localizedCaseInsensitiveContains(searchText) ||
+               restaurant.location.localizedCaseInsensitiveContains(searchText) ||
+               restaurant.type.localizedCaseInsensitiveContains(searchText) {
+                return true
+            } else {
+                return false
+            }
+        })
+    }
+    
+    //MARK:- Search Results Updates
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text {
+            filterContent(for: searchText)
+            tableView.reloadData()
+        }
+    }
+    
     //MARK:- Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showRestaurantDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let destinationController = segue.destination as! RestaurantDetailViewController
-                destinationController.restaurant = restaurants[indexPath.row]
+                destinationController.restaurant = (searchController.isActive) ? searchResults[indexPath.row] : restaurants[indexPath.row]
             }
         }
     }
