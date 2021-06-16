@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class RestaurantTableViewCell: UITableViewCell {
     //Outlets
     @IBOutlet weak var nameLabel: UILabel!
@@ -19,6 +20,8 @@ class RestaurantTableViewCell: UITableViewCell {
             thumbnailImageView.layer.masksToBounds = true
         }
     }
+    @IBOutlet weak var heartImageView: UIImageView!
+    
     
 
     override func awakeFromNib() {
