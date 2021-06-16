@@ -48,44 +48,9 @@ class RestaurantViewController: UITableViewController {
         cell.thumbnailImageView.image = UIImage(named: restaurantImages[indexPath.row])
         
         //Checkmark
-        cell.heartImageView.isHidden = restaurantIsVisited[indexPath.row] ? false : true
+        cell.heartImageView.isHidden = !restaurantIsVisited[indexPath.row]
         
         return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        //Deleting Action
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completionHandler) in
-            self.restaurantNames.remove(at: indexPath.row)
-            self.restaurantLocations.remove(at: indexPath.row)
-            self.restaurantTypes.remove(at: indexPath.row)
-            self.restaurantImages.remove(at: indexPath.row)
-            self.restaurantIsVisited.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            completionHandler(true)
-        }
-        
-        //Sharing Action
-        let shareAction = UIContextualAction(style: .normal, title: "Share") { (_, _, completionHandler) in
-            let defaultText = "Just checking-in at " + self.restaurantNames[indexPath.row]
-            
-            //Sharing Images
-            let activityController: UIActivityViewController
-            if let imageToShare = UIImage(named: self.restaurantImages[indexPath.row]) {
-                 activityController = UIActivityViewController(activityItems: [defaultText,imageToShare], applicationActivities: nil)
-            } else {
-                activityController = UIActivityViewController(activityItems: [defaultText], applicationActivities: nil)
-            }
-            
-            //Presente sharing
-            self.present(activityController, animated: true, completion: nil)
-            completionHandler(true)
-        }
-        
-        //Swipe Configuration
-        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, shareAction])
-        return swipeConfiguration
     }
     
     
@@ -144,5 +109,77 @@ class RestaurantViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    // Trailing Swipe Action
+    override func tableView(_ tableView: UITableView,
+                            trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        //Deleting Action
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completionHandler) in
+            self.restaurantNames.remove(at: indexPath.row)
+            self.restaurantLocations.remove(at: indexPath.row)
+            self.restaurantTypes.remove(at: indexPath.row)
+            self.restaurantImages.remove(at: indexPath.row)
+            self.restaurantIsVisited.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            completionHandler(true)
+        }
+        
+        //Sharing Action
+        let shareAction = UIContextualAction(style: .normal, title: "Share") { (_, _, completionHandler) in
+            let defaultText = "Just checking-in at " + self.restaurantNames[indexPath.row]
+            
+            //Sharing Images
+            let activityController: UIActivityViewController
+            if let imageToShare = UIImage(named: self.restaurantImages[indexPath.row]) {
+                activityController = UIActivityViewController(activityItems: [defaultText,imageToShare], applicationActivities: nil)
+            } else {
+                activityController = UIActivityViewController(activityItems: [defaultText], applicationActivities: nil)
+            }
+            
+            //Presente sharing
+            self.present(activityController, animated: true, completion: nil)
+            
+            //For popover Style
+            if let popover = activityController.popoverPresentationController {
+                if let cell = tableView.cellForRow(at: indexPath) {
+                    popover.sourceView = cell
+                    popover.sourceRect = cell.bounds
+                }
+            }
+            completionHandler(true)
+        }
+        
+        //Configure the buttons
+        deleteAction.backgroundColor = UIColor(red: 231.0/255.0, green: 67.0/255.0, blue: 60.0/255.0, alpha: 1.0)
+        deleteAction.image = UIImage(named: "delete")
+        shareAction.backgroundColor = UIColor(red: 254.0/255.0, green: 149.0/255.0, blue: 38.0/255.0, alpha: 1.0)
+        shareAction.image = UIImage(named: "share")
+        
+        //Swipe Configuration
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, shareAction])
+        return swipeConfiguration
+    }
+    
+    //Leading Swipe Action
+    override func tableView(_ tableView: UITableView,
+                            leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let checkInAction = UIContextualAction(style: .normal, title:"") { (_, _, completionHandler) in
+            if let cell = tableView.cellForRow(at: indexPath) as? RestaurantTableViewCell {
+                self.restaurantIsVisited[indexPath.row] = !self.restaurantIsVisited[indexPath.row]
+                cell.heartImageView.isHidden = !self.restaurantIsVisited[indexPath.row]
+                
+                completionHandler(true)
+            }
+        }
+        
+        let tickImage = UIImage(named: "tick")
+        let undoImage = UIImage(named: "undo")
+        let imageAction = restaurantIsVisited[indexPath.row] ? undoImage : tickImage
+        checkInAction.image = imageAction
+        checkInAction.backgroundColor = UIColor(red: 38.0/255.0, green: 162.0/255.0, blue: 78.0/255.0, alpha: 1.0)
+        
+        return UISwipeActionsConfiguration(actions: [checkInAction])
+    }
     
 }
